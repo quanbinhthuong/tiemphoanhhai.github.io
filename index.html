@@ -1,192 +1,319 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<title>Brother Hai's Pho Restaurant by Marisa</title>
-<meta name="description" content="A horror story about a man who runs a Pho restaurant in Vietnam.">
-<meta name="keywords" content="Brother Hai's Pho Restaurant, Tiệm Phở của Anh Hai, Godot, horror game, Vietnamese game">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#000000">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brother Hai's Pho Restaurant - Tiệm Phở Của Anh Hai</title>
+    <meta name="description" content="Running a Vietnamese Pho restaurant is not easy. Available for Windows">
+    <meta property="og:title" content="Brother Hai's Pho Restaurant - Tiệm Phở Của Anh Hai">
+    <meta property="og:description" content="Running a Vietnamese Pho restaurant is not easy">
+    <meta property="og:image" content="https://img.itch.zone/aW1nLzIzNzUxOTgwLnBuZw==/original/1tpGTN.png">
+    <link rel="icon" href="https://img.itch.zone/aW1nLzIzNzUxOTgwLnBuZw==/32x32%23/5ATwKs.png" type="image/png">
 
-<link rel="stylesheet" href="https://static.itch.io/game.css">
+    <style>
+        :root {
+            --bg: #000000;
+            --text: #ffffff;
+            --accent: #fa5c5c;
+            --dark: #191919;
+            --blur-bg: rgba(25,25,25,0.6);
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            background: var(--bg) url('https://img.itch.zone/aW1nLzIzNzUyMDIzLnBuZw==/original/4CV3%2BR.png') center top no-repeat fixed;
+            color: var(--text);
+            font-family: 'Lato', sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 30px;
+        }
+        header {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px 0;
+        }
+        header img {
+            max-width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        h1 {
+            font-size: 2.5em;
+            margin: 20px 0;
+            font-weight: 900;
+        }
 
-<style id="game_theme">
-  body {
-    background-color: #000;
-    background-image: url('https://img.itch.zone/aW1nLzIzNzUyMDIzLnBuZw==/original/4CV3%2BR.png');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: 50% 0;
-    color: #fff;
-    font-family: "Open Sans", sans-serif;
-    margin: 0;
-    padding: 0;
-  }
+        /* DOWNLOAD BOX - NÚT Ở GIỮA */
+        .download-box {
+            grid-column: 1 / -1;
+            background: var(--blur-bg);
+            padding: 20px;
+            border-radius: 16px;
+            text-align: center;
+            margin: 20px 0;
+            backdrop-filter: blur(8px);
+        }
+        .download-box p {
+            margin: 0 0 15px;
+            font-size: 1.1em;
+        }
+        .download-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+        .download-btn {
+            background: var(--accent);
+            color: white;
+            padding: 8px 20px;
+            font-size: 1em;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 8px rgba(250,92,92,0.3);
+            display: inline-block;
+        }
+        .download-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 12px rgba(250,92,92,0.5);
+        }
+        .loading {
+            display: none;
+            flex-direction: row;
+            align-items: center;
+            gap: 10px;
+        }
+        .loading img {
+            width: 40px;
+            height: 40px;
+        }
+        .loading p {
+            font-size: 1em;
+            color: var(--accent);
+            font-weight: bold;
+            margin: 0;
+        }
 
-  .header {
-    text-align: center;
-    margin-top: 40px;
-  }
+        .main-content {
+            background: var(--blur-bg);
+            padding: 30px;
+            border-radius: 16px;
+            backdrop-filter: blur(8px);
+        }
+        .content h2 {
+            color: var(--accent);
+            margin: 25px 0 15px;
+            font-size: 1.8em;
+            text-align: center;
+        }
+        .content p, .content li {
+            margin: 12px 0;
+            font-size: 1.1em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: rgba(25,25,25,0.3);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #333;
+        }
+        td:first-child {
+            font-weight: bold;
+            background: rgba(250,92,92,0.2);
+        }
 
-  .header img {
-    width: 240px;
-    border-radius: 12px;
-    box-shadow: 0 0 20px rgba(255, 90, 90, 0.4);
-    animation: fadeIn 2s ease-in-out;
-  }
+        /* Right Column */
+        .right-col {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .video-embed {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+        }
+        .video-embed iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border: 0;
+        }
+        .screenshot-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .screenshot-list img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease;
+        }
+        .screenshot-list img:hover {
+            transform: scale(1.05);
+        }
 
-  .header h1 {
-    font-weight: 900;
-    font-size: 24px;
-    margin: 15px 0 5px;
-    letter-spacing: 1px;
-  }
+        footer {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px 0;
+            font-size: 0.9em;
+            color: #aaa;
+            margin-top: 30px;
+        }
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
 
-  .header h2 {
-    font-weight: normal;
-    color: #ccc;
-    font-size: 15px;
-  }
-
-  .buy_btn {
-    display: inline-block;
-    background-color: #fa5c5c;
-    color: #fff;
-    padding: 14px 35px;
-    border-radius: 10px;
-    text-decoration: none;
-    font-weight: bold;
-    text-shadow: 0 1px 0px #e54747;
-    font-size: 17px;
-    letter-spacing: 0.5px;
-    margin-top: 25px;
-    transition: all 0.3s ease-in-out;
-    animation: glow 2s infinite alternate;
-  }
-
-  .buy_btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 25px #ff1a1a, 0 0 50px #fa5c5c;
-  }
-
-  .content {
-    max-width: 900px;
-    margin: 40px auto;
-    text-align: center;
-    line-height: 1.6;
-    background-color: rgba(0, 0, 0, 0.45);
-    padding: 30px;
-    border-radius: 20px;
-  }
-
-  @keyframes glow {
-    from { box-shadow: 0 0 10px #fa5c5c, 0 0 20px #ff8080; }
-    to { box-shadow: 0 0 25px #ff1a1a, 0 0 50px #fa5c5c; }
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
-  }
-
-  footer {
-    text-align: center;
-    padding: 20px;
-    color: #bbb;
-    font-size: 14px;
-    margin-top: 40px;
-  }
-
-  a {
-    color: #fa5c5c;
-    text-decoration: none;
-  }
-
-  a:hover {
-    text-decoration: underline;
-  }
-</style>
+        @media (max-width: 992px) {
+            .container { grid-template-columns: 1fr; }
+            .right-col { order: -1; }
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 2em; }
+            .download-btn { padding: 7px 16px; font-size: 0.95em; }
+            .loading img { width: 35px; height: 35px; }
+            .loading p { font-size: 0.95em; }
+        }
+    </style>
 </head>
-
 <body>
-  <div class="header">
-    <img src="https://img.itch.zone/aW1nLzIzNzM3NTgzLnBuZw==/original/dHvwpw.png" alt="Brother Hai's Pho Restaurant">
-    <h1>Brother Hai's Pho Restaurant</h1>
-    <h2>Tiệm Phở Của Anh Hai</h2>
-    <!-- Nút tải ở giữa -->
-    <a href="https://www.mediafire.com/file/hz1nzjtxq1l17f6/Brother_Hai%2527s_Pho_Restaurant_Windows.rar/file" class="buy_btn" target="_blank">Download Now</a>
-  </div>
 
-  <div class="content">
-    <h2>Về</h2>
-    <p>
-      Quán Phở của Anh Hai là một trò chơi kinh dị có cốt truyện lấy cảm hứng từ văn hóa Việt Nam và các sự kiện có thật, được tạo ra bằng Godot Engine. 
-      Trò chơi mang đến cái nhìn thoáng qua về cuộc sống thường nhật của người Việt mà bạn thường không thấy trên các phương tiện truyền thông.
-    </p>
-    <p>
-      Tiệm Phở của Anh Hai là một tựa game kinh dị đậm chất cốt truyện, được truyền cảm hứng từ văn hóa và các sự kiện có thật tại Việt Nam, 
-      phát triển nhờ Godot Engine. Trò chơi tái sinh hiện một số hình ảnh về cuộc sống thường nhật ở Việt Nam.
-    </p>
+<div class="container">
 
-    <h2>Câu chuyện</h2>
-    <p>
-      Hãy cùng bước vào vai Anh Hải, một chủ quán phở mới mở tại một ngôi làng tưởng chừng như yên bình ở huyện Đan Phượng, Hà Nội. 
-      Bắt đầu với công việc bán phở đơn giản và giao lưu với người dân địa phương, Anh Hải dần khám phá ra một bí ẩn đen tối đang bao trùm ngôi làng. 
-      Để duy trì hoạt động và tồn tại, Anh Hải phải đối mặt với những biến cố bất ngờ và quá khứ ám ảnh của chính mình.
-    </p>
-    <p>
-      Vào vai Anh Hải, một chủ lá phở mới khai tài khoản tại ngôi làng tưởng yên bình thuộc huyện Đan Phượng, Hà Nội. 
-      Bắt đầu công việc kinh doanh bình dị và giao lưu với những người dân địa phương, Anh Hai dần dần nhận ra một bí ẩn đen tối bao trùm làng làng. 
-      Để tiếp tục chữa cháy cho lá phở và sinh vật tồn tại, Anh Hải phải đối mặt với những biến cố bất ngờ và quá khứ đầy ảnh của chính mình.
-    </p>
+    <!-- Header -->
+    <header>
+        <img src="https://img.itch.zone/aW1nLzIzNzM3NTgzLnBuZw==/original/dHvwpw.png" alt="Brother Hai's Pho Restaurant">
+        <h1>Brother Hai's Pho Restaurant<br><small>Tiệm Phở Của Anh Hai</small></h1>
+    </header>
 
-    <h2>Đặc trưng</h2>
-    <ul style="text-align:left; display:inline-block;">
-      <li>Cốt truyện phong phú, gay cấn với những tình tiết bất ngờ / Cốt truyện kịch tính và bí ẩn</li>
-      <li>Đoạn phim cắt cảnh / Điện ảnh</li>
-      <li>Đồ họa cổ điển / Đồ họa cổ điển</li>
-      <li>Đánh trùm</li>
-      <li>Buổi làm phở / Phở</li>
-      <li>Pet the dog / Xoa đầu chó</li>
-    </ul>
+    <!-- DOWNLOAD BOX - NÚT Ở GIỮA -->
+    <div class="download-box">
+        <p><strong>A downloadable game for Windows</strong></p>
+        <div class="download-wrapper">
+            <a href="javascript:void(0)" class="download-btn" id="downloadBtn">Download Now</a>
+            <div class="loading" id="loading">
+                <img src="https://i.imgur.com/yybA3N1.gif" alt="Loading...">
+                <p>Đang tải game...</p>
+            </div>
+        </div>
+    </div>
 
-    <h2>Thời gian chơi</h2>
-    <p>~30 phút - 1 giờ</p>
-    <p>4 kết thúc</p>
+    <!-- Nội dung mô tả - giữ nguyên, bỏ Content Creators -->
+    <div class="main-content">
+        <div class="content">
+            <h2 class="text-center">About:</h2>
+            <p><strong>Brother Hai's Pho Restaurant</strong> is a story-driven horror game inspired by Vietnamese culture and real events, made with Godot Engine. The game offers glimpses into everyday Vietnamese life that you don't typically see in the media.</p>
+            <p><strong>Tiệm Phở của Anh Hai</strong> là một tựa game kinh dị đậm chất cốt truyện, được truyền cảm hứng từ văn hóa và các sự kiện có thật tại Việt Nam, phát triển bằng Godot Engine. Trò chơi tái hiện một số hình ảnh về cuộc sống thường nhật ở Việt Nam.</p>
 
-    <h2>Kiểm soát</h2>
-    <pre style="text-align:left; display:inline-block; background:rgba(255,255,255,0.1); padding:15px; border-radius:10px;">
-Chuột          Nhìn
-WASD           Di chuyển
-Shift          Chạy
-Chuột trái     Tương tác
-Chuột phải     Phóng
-Tab            Tạm dừng
-A/D            Điều khiển xe đạp
-Esc            Dịch chuyển tức thời
-    </pre>
+            <h2 class="text-center">Story:</h2>
+            <p>Step into the shoes of <strong>Anh Hai</strong>, a new pho restaurant owner in a seemingly peaceful village in Dan Phuong District, Hanoi. Starting with the simple business of selling pho and socializing with the locals, Anh Hai gradually uncovers a <strong>dark mystery</strong> shrouding the village. To keep his restaurant running and survive, Anh Hai must confront <strong>unexpected events</strong> and his own <strong>haunting past.</strong></p>
+            <p>Vào vai <strong>Anh Hai</strong>, một chủ tiệm phở mới khai trương tại ngôi làng tưởng chừng yên bình thuộc huyện Đan Phượng, Hà Nội. Bắt đầu bằng công việc kinh doanh bình dị và giao lưu với những người dân địa phương, Anh Hai dần nhận ra một <strong>bí ẩn đen tối</strong> đang bao trùm ngôi làng. Để tiếp tục giữ lửa cho tiệm phở và sinh tồn, Anh Hai buộc phải đối mặt với <strong>những biến cố bất ngờ</strong> và <strong>quá khứ đầy ám ảnh</strong> của chính mình.</p>
 
-    <h2>Trân trọng</h2>
-    <p>
-      Cảm ơn bạn đã ghé thăm nhà hàng Phở của Anh Hai. 
-      Chúng tôi đã dành rất nhiều thời gian, tình yêu và tâm huyết cho dự án này, và chúng tôi rất vui mừng được chia sẻ với bạn. 
-      Xin vui lòng để lại bình luận và phản hồi bên dưới hoặc gửi đến email: 
-      <a href="mailto:hehehekth@gmail.com">hehehekth@gmail.com</a> — chúng tôi rất mong nhận được những trải nghiệm của bạn. 
-      Sự ủng hộ của bạn rất có ý nghĩa và giúp chúng tôi cải thiện.
-    </p>
-    <p>
-      Cảm ơn vì đã tìm thấy Tiệm Phở của Anh Hải. 
-      Đây là dự án chúng tôi đã dành nhiều tâm huyết và rất trân trọng được chia sẻ cùng các bạn. 
-      Làm ơn để lại phản hồi hoặc bình luận bên dưới, hoặc gửi email cho nhà phát triển tại 
-      <a href="mailto:hehehekth@gmail.com">hehehekth@gmail.com</a> — chúng tôi rất muốn nghe về trải nghiệm của các bạn. 
-      Sự hỗ trợ của các bạn rất có ý nghĩa và giúp chúng tôi phát triển.
-    </p>
-    <p><strong>Chúc các bạn ăn Phở ngon miệng và Hẹn gặp lại!</strong></p>
-  </div>
+            <h2 class="text-center">Features:</h2>
+            <ol>
+                <li>Rich, thrilling storyline with plot twists / Cốt truyện kịch tính và bí ẩn<br></li>
+                <li>Cinematic cutscenes / Điện ảnh<br></li>
+                <li>Retro graphics / Đồ họa Retro</li>
+                <li>Bossfight</li>
+                <li>Pho making session / Phở</li>
+                <li>Pet the dog / Xoa đầu chó</li>
+            </ol>
 
-  <footer>
-    © 2025 Brother Hai's Pho Restaurant — All rights reserved.<br>
-    Made with ❤️ using Godot Engine.
-  </footer>
+            <h2 class="text-center">Play Time:</h2>
+            <p class="text-center">~30m - 1h</p>
+            <p class="text-center">4 endings</p>
+
+            <h3>Controls:</h3>
+            <table><tbody>
+                <tr><td><strong>Mouse</strong></td><td><strong>Look</strong></td></tr>
+                <tr><td><strong>WASD</strong></td><td><strong>Movement</strong></td></tr>
+                <tr><td><strong>Shift</strong></td><td><strong>Run</strong></td></tr>
+                <tr><td><strong>Left Click</strong></td><td><strong>Interact</strong></td></tr>
+                <tr><td><strong>Right Click</strong></td><td><strong>Zoom</strong></td></tr>
+                <tr><td><strong>Tab</strong></td><td><strong>Pause</strong></td></tr>
+                <tr><td><strong>A/D</strong></td><td><strong>Bike control</strong></td></tr>
+                <tr><td><strong>Esc</strong></td><td><strong>Teleport</strong></td></tr>
+            </tbody></table>
+
+            <h2 class="text-center">Regards:</h2>
+            <p><strong>Thanks for checking out Brother Hai's Pho restaurant.</strong> We have poured a lot of time, love and passion into this project and we're thrilled to share it with you. Feel free to leave comments and feedbacks below or to my e-mail <strong>hehehekth@gmail.com</strong> – we'd love to hear your experiences. Your support means a lot and helps us improve.</p>
+            <p><strong>Cảm ơn vì đã tìm đến Tiệm Phở của Anh Hai.</strong> Đây là project chúng tôi đã dành nhiều tâm huyết và rất háo hức được chia sẻ với các bạn. Làm ơn để lại feedbacks hoặc bình luận bên dưới hoặc e-mail của nhà phát triển <strong>hehehekth@gmail.com</strong> – chúng tôi rất muốn nghe về trải nghiệm của các bạn. Sự ủng hộ của các bạn rất có ý nghĩa và giúp chúng tôi phát triển.<br></p>
+            <p class="text-center"><strong>Chúc các bạn ăn Phở ngon miệng và Hẹn gặp lại!</strong><br></p>
+            <p class="text-center"><strong>Soundtracks:</strong></p>
+            <p class="text-center"><strong><a href="https://www.youtube.com/playlist?list=PLt0R98w2RlR3KyUphvOH1K2CtxR_Fbf6s" target="_blank">https://www.youtube.com/playlist?list=PLt0R98w2RlR3KyUphvOH1K2CtxR_Fbf6s</a></strong><br></p>
+        </div>
+    </div>
+
+    <!-- Right Column: Video + Screenshots -->
+    <div class="right-col">
+        <div class="video-embed">
+            <iframe src="//www.youtube.com/embed/0bz6TyaQhSE" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <div class="screenshot-list">
+            <a href="https://img.itch.zone/aW1hZ2UvMzk4MDI0MC8yMzczNzA5My5wbmc=/original/huazkr.png" target="_blank">
+                <img src="https://img.itch.zone/aW1hZ2UvMzk4MDI0MC8yMzczNzA5My5wbmc=/347x500/2otlii.png" alt="Screenshot 1">
+            </a>
+            <a href="https://img.itch.zone/aW1hZ2UvMzk4MDI0MC8yMzczNzA5Mi5wbmc=/original/6mbK24.png" target="_blank">
+                <img src="https://img.itch.zone/aW1hZ2UvMzk4MDI0MC8yMzczNzA5Mi5wbmc=/347x500/qoKejc.png" alt="Screenshot 2">
+            </a>
+            <a href="https://img.itch.zone/aW1hZ2UvMzk4MDI0MC8yMzczNzA5Ny5wbmc=/original/LYtjGy.png" target="_blank">
+                <img src="https://img.itch.zone/aW1hZ2UvMzk4MDI0MC8yMzczNzA5Ny5wbmc=/347x500/N5gb%2B6.png" alt="Screenshot 3">
+            </a>
+            <a href="https://img.itch.zone/aW1hZ2UvMzk4MDI0MC8yMzczNzA5NS5wbmc=/original/dOrH0%2B.png" target="_blank">
+                <img src="https://img.itch.zone/aW1hZ2UvMzk4MDI0MC8yMzczNzA5NS5wbmc=/347x500/kZtF3r.png" alt="Screenshot 4">
+            </a>
+            <a href="https://img.itch.zone/aW1hZ2UvMzk4MDI0MC8yMzczNzA5Ni5wbmc=/original/Vff8Zl.png" target="_blank">
+                <img src="https://img.itch.zone/aW1hZ2UvMzk4MDI0MC8yMzczNzA5Ni5wbmc=/347x500/NuroGN.png" alt="Screenshot 5">
+            </a>
+            <a href="https://img.itch.zone/aW1hZ2UvMzk4MDI0MC8yMzczNzA5NC5wbmc=/original/TLoQvu.png" target="_blank">
+                <img src="https://img.itch.zone/aW1hZ2UvMzk4MDI0MC8yMzczNzA5NC5wbmc=/347x500/CImvAo.png" alt="Screenshot 6">
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 marisa0704 | Game made with love in Vietnam</p>
+        <p><a href="mailto:hehehekth@gmail.com">Contact Developer</a></p>
+    </footer>
+</div>
+
+<!-- Download Script -->
+<script>
+    document.getElementById('downloadBtn').addEventListener('click', function() {
+        const loading = document.getElementById('loading');
+        const btn = document.getElementById('downloadBtn');
+        
+        btn.style.display = 'none';
+        loading.style.display = 'flex';
+
+        setTimeout(() => {
+            window.location.href = 'https://www.mediafire.com/file/hz1nzjtxq1l17f6/Brother_Hai%2527s_Pho_Restaurant_Windows.rar/file';
+        }, 1500);
+    });
+</script>
+
 </body>
 </html>
