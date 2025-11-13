@@ -50,7 +50,6 @@
             font-weight: 900;
         }
 
-        /* DOWNLOAD BOX - NÚT Ở GIỮA */
         .download-box {
             grid-column: 1 / -1;
             background: var(--blur-bg);
@@ -69,6 +68,7 @@
             justify-content: center;
             align-items: center;
             gap: 15px;
+            flex-wrap: wrap;
         }
         .download-btn {
             background: var(--accent);
@@ -136,7 +136,6 @@
             background: rgba(250,92,92,0.2);
         }
 
-        /* Right Column */
         .right-col {
             display: flex;
             flex-direction: column;
@@ -156,20 +155,43 @@
             width: 100%; height: 100%;
             border: 0;
         }
+
         .screenshot-list {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
         }
-        .screenshot-list img {
+        .screenshot-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        .screenshot-item img {
             width: 100%;
             height: auto;
             border-radius: 10px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
             transition: transform 0.3s ease;
+            display: block;
         }
-        .screenshot-list img:hover {
+        .screenshot-item:hover img {
             transform: scale(1.05);
+        }
+        .caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.6);
+            color: #fff;
+            font-size: 0.9em;
+            text-align: center;
+            padding: 5px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .screenshot-item:hover .caption {
+            opacity: 1;
         }
 
         footer {
@@ -191,9 +213,6 @@
         }
         @media (max-width: 768px) {
             h1 { font-size: 2em; }
-            .download-btn { padding: 7px 16px; font-size: 0.95em; }
-            .loading img { width: 35px; height: 35px; }
-            .loading p { font-size: 0.95em; }
         }
     </style>
 </head>
@@ -201,17 +220,16 @@
 
 <div class="container">
 
-    <!-- Header -->
     <header>
         <img src="https://img.itch.zone/aW1nLzIzNzM3NTgzLnBuZw==/original/dHvwpw.png" alt="Brother Hai's Pho Restaurant">
         <h1>Brother Hai's Pho Restaurant<br><small>Tiệm Phở Của Anh Hai</small></h1>
     </header>
 
-    <!-- DOWNLOAD BOX - NÚT Ở GIỮA -->
     <div class="download-box">
-        <p><strong>A downloadable game for Windows</strong></p>
+        <p><strong>A downloadable game for Windows & iOS</strong></p>
         <div class="download-wrapper">
-            <a href="javascript:void(0)" class="download-btn" id="downloadBtn">Download Now</a>
+            <a href="javascript:void(0)" class="download-btn" id="downloadBtn">Download for Windows</a>
+            <a href="https://www.mediafire.com/file/sample_ios_link/Brother_Hai_iOS.ipa/file" class="download-btn">Download for iOS</a>
             <div class="loading" id="loading">
                 <img src="https://i.imgur.com/yybA3N1.gif" alt="Loading...">
                 <p>Đang tải game...</p>
@@ -219,8 +237,10 @@
         </div>
     </div>
 
-    <!-- Nội dung mô tả - giữ nguyên, bỏ Content Creators -->
     <div class="main-content">
+        <!-- Giữ nguyên phần mô tả -->
+        <!-- (Phần About, Story, Features, Controls, Regards...) -->
+ <div class="main-content">
         <div class="content">
             <h2 class="text-center">About:</h2>
             <p><strong>Brother Hai's Pho Restaurant</strong> is a story-driven horror game inspired by Vietnamese culture and real events, made with Godot Engine. The game offers glimpses into everyday Vietnamese life that you don't typically see in the media.</p>
@@ -265,56 +285,57 @@
         </div>
     </div>
 
-    <!-- Right Column: Video + Screenshots -->
+    </div>
+
     <div class="right-col">
         <div class="video-embed">
             <iframe src="//www.youtube.com/embed/0bz6TyaQhSE" frameborder="0" allowfullscreen></iframe>
         </div>
 
         <div class="screenshot-list">
-            <a href="https://img.itch.zone/aW1hZ2UvMzk4MDI0MC8yMzczNzA5My5wbmc=/original/huazkr.png" target="_blank">
+            <div class="screenshot-item">
                 <img src="https://img.itch.zone/aW1hZ2UvMzk4MDI0MC8yMzczNzA5My5wbmc=/347x500/2otlii.png" alt="Screenshot 1">
-            </a>
-            <a href="https://img.itch.zone/aW1hZ2UvMzk4MDI0MC8yMzczNzA5Mi5wbmc=/original/6mbK24.png" target="_blank">
+                <div class="caption">Anh Hai nấu phở trong bếp</div>
+            </div>
+            <div class="screenshot-item">
                 <img src="https://img.itch.zone/aW1hZ2UvMzk4MDI0MC8yMzczNzA5Mi5wbmc=/347x500/qoKejc.png" alt="Screenshot 2">
-            </a>
-            <a href="https://img.itch.zone/aW1hZ2UvMzk4MDI0MC8yMzczNzA5Ny5wbmc=/original/LYtjGy.png" target="_blank">
+                <div class="caption">Khung cảnh quán phở ban đêm</div>
+            </div>
+            <div class="screenshot-item">
                 <img src="https://img.itch.zone/aW1hZ2UvMzk4MDI0MC8yMzczNzA5Ny5wbmc=/347x500/N5gb%2B6.png" alt="Screenshot 3">
-            </a>
-            <a href="https://img.itch.zone/aW1hZ2UvMzk4MDI0MC8yMzczNzA5NS5wbmc=/original/dOrH0%2B.png" target="_blank">
+                <div class="caption">Góc nhìn người chơi trong tiệm</div>
+            </div>
+            <div class="screenshot-item">
                 <img src="https://img.itch.zone/aW1hZ2UvMzk4MDI0MC8yMzczNzA5NS5wbmc=/347x500/kZtF3r.png" alt="Screenshot 4">
-            </a>
-            <a href="https://img.itch.zone/aW1hZ2UvMzk4MDI0MC8yMzczNzA5Ni5wbmc=/original/Vff8Zl.png" target="_blank">
+                <div class="caption">Cảnh bí ẩn trong ngôi làng</div>
+            </div>
+            <div class="screenshot-item">
                 <img src="https://img.itch.zone/aW1hZ2UvMzk4MDI0MC8yMzczNzA5Ni5wbmc=/347x500/NuroGN.png" alt="Screenshot 5">
-            </a>
-            <a href="https://img.itch.zone/aW1hZ2UvMzk4MDI0MC8yMzczNzA5NC5wbmc=/original/TLoQvu.png" target="_blank">
+                <div class="caption">Chiếc xe đạp huyền thoại của Anh Hai</div>
+            </div>
+            <div class="screenshot-item">
                 <img src="https://img.itch.zone/aW1hZ2UvMzk4MDI0MC8yMzczNzA5NC5wbmc=/347x500/CImvAo.png" alt="Screenshot 6">
-            </a>
+                <div class="caption">Một phân cảnh đầy kịch tính</div>
+            </div>
         </div>
     </div>
 
-    <!-- Footer -->
     <footer>
         <p>© 2025 marisa0704 | Game made with love in Vietnam</p>
         <p><a href="mailto:hehehekth@gmail.com">Contact Developer</a></p>
     </footer>
 </div>
 
-<!-- Download Script -->
 <script>
     document.getElementById('downloadBtn').addEventListener('click', function() {
         const loading = document.getElementById('loading');
         const btn = document.getElementById('downloadBtn');
-        
         btn.style.display = 'none';
         loading.style.display = 'flex';
-
         setTimeout(() => {
             window.location.href = 'https://www.mediafire.com/file/hz1nzjtxq1l17f6/Brother_Hai%2527s_Pho_Restaurant_Windows.rar/file';
         }, 1500);
     });
 </script>
-<script type='text/javascript' src='//pl26947935.profitableratecpm.com/a3/ff/2e/a3ff2eb3e4415ce00aed34eeedefbeee.js'></script>
-<script type="text/javascript" src="//creative-sb1.com/sb/notifications/other/adzilla/notif/2/js/jquery.min.js"></script>    
 </body>
 </html>
